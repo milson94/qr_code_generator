@@ -1,0 +1,163 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+}
+
+h1 {
+    color: #1a237e;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #555;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+#qrForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+#urlInput {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#urlInput:focus {
+    outline: none;
+    border-color: #3f51b5;
+    box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.2);
+}
+
+button {
+    background-color: #3f51b5;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #303f9f;
+    transform: translateY(-2px);
+}
+
+#qrcode-container {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+#qrcode {
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+/* This will be used to hide the canvas if it's empty */
+#qrcode:empty {
+    border: none;// Get references to the HTML elements we need to interact with
+const qrForm = document.getElementById('qrForm');
+const urlInput = document.getElementById('urlInput');
+const qrcodeContainer = document.getElementById('qrcode');
+const downloadBtn = document.getElementById('downloadBtn');
+
+// This function will handle the form submission
+qrForm.addEventListener('submit', function(event) {
+    // Prevent the form from submitting in the traditional way (which would reload the page)
+    event.preventDefault();
+
+    // Get the text/URL from the input field and remove any extra whitespace
+    const url = urlInput.value.trim();
+
+    // Check if the input is empty
+    if (url === '') {
+        alert('Please enter a URL or text!');
+        return;
+    }
+
+    // Clear any previous QR code
+    qrcodeContainer.innerHTML = '';
+    downloadBtn.classList.add('hidden');
+
+    // Use the qrcode.js library to create the QR code
+    // The library will generate a <canvas> element inside our 'qrcode' div
+    const qrcode = new QRCode(qrcodeContainer, {
+        text: url,
+        width: 256,
+        height: 256,
+        colorDark : "#000000",
+        colorLight : "#ffffff",
+        correctLevel : QRCode.CorrectLevel.H // High correction level for better readability
+    });
+
+    // The QR code generation can take a fraction of a second.
+    // We use a small timeout to ensure the canvas element has been created
+    // before we try to create the download link for it.
+    setTimeout(() => {
+        // Find the canvas element that the library created
+        const canvas = qrcodeContainer.querySelector('canvas');
+        if (canvas) {
+            // Convert the canvas to a PNG image data URL
+            const pngUrl = canvas.toDataURL('image/png');
+            
+            // Set the download link's href to the PNG data
+            downloadBtn.href = pngUrl;
+            
+            // Make the download button visible
+            downloadBtn.classList.remove('hidden');
+        }
+    }, 100); // 100 milliseconds is plenty of time
+});
+    padding: 0;
+}
+
+#downloadBtn {
+    background-color: #1e8e3e;
+    color: white;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+#downloadBtn:hover {
+    background-color: #176d30;
+}
+
+.hidden {
+    display: none;
+}
