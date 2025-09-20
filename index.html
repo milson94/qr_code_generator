@@ -11,24 +11,47 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1>Free Static QR Code Generator</h1>
-        <p>Enter any URL or text to instantly generate a high-quality QR code. It's free and works forever, as long as the destination link is online.</p>
-        
-        <form id="qrForm">
-            <input type="url" id="urlInput" placeholder="https://example.com" required>
-            <button type="submit">Generate QR Code</button>
-        </form>
+    <header>
+        <nav>
+            <a href="index.html" class="logo">QR Generator</a>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="terms-and-conditions.html">Terms</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        <div id="qrcode-container">
-            <div id="qrcode"></div>
-            <a href="#" id="downloadBtn" class="hidden" download="qrcode.png">Download QR Code</a>
+    <div class="main-content">
+        <div class="container">
+            <h1>Free Static QR Code Generator</h1>
+            <p>Enter any URL or text to instantly generate a high-quality QR code. It's free and works forever, as long as the destination link is online.</p>
+            
+            <form id="qrForm">
+                <input type="url" id="urlInput" placeholder="https://example.com" required>
+                <button type="submit">Generate QR Code</button>
+            </form>
+
+            <div id="qrcode-container">
+                <div id="qrcode"></div>
+                <a href="#" id="downloadBtn" class="hidden" download="qrcode.png">Download QR Code</a>
+            </div>
         </div>
     </div>
 
     <!-- We need a library to do the hard work of generating the QR code -->
     <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+
+    <!-- Ad Banner Code -->
+    <script async="async" data-cfasync="false" src="//pl27687959.revenuecpmgate.com/b5b4864c86314739d01673c334deb9f0/invoke.js"></script>
+    <div id="container-b5b4864c86314739d01673c334deb9f0"></div>
+
     <!-- Our custom script -->
     <script src="script.js"></script>
+
+    <footer>
+        <p>&copy; 2024 QR Generator. All rights reserved.</p>
+    </footer>
 </body>
 </html>
